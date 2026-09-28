@@ -35,7 +35,6 @@
     <!-- Кнопки управління (Виправлено: кнопка та посилання рознесені) -->
     <div class="header__actions">
       <button type="button" class="btn" onclick="toggleDarkMode()">Тема</button>
-      <a href="./ccal2.html" style="text-decoration: none; color: inherit;"><Button class="btn">Календар</Button></a>
     </div>
   </div>
 
@@ -52,9 +51,6 @@
     <ul class="mobile-menu-nav">
       <li class="mobile-menu-nav-item">
         <a class="link current" href="./index.html">Головна</a>
-      </li>
-      <li class="mobile-menu-nav-item">
-        <a class="link" href="./portfolio.html">Курси</a>
       </li>
       <li class="mobile-menu-nav-item">
         <a class="link" href="./contacts.html">Контакти</a>
@@ -78,18 +74,6 @@
       </li>
       <li class="mobile-menu-contacts-item">
         <a class="link" href="mailto:info@behealth.com.ua">info@behealth.com.ua</a>
-      </li>
-    </ul>
-
-    <ul class="mobile-menu-socials">
-      <li class="mobile-menu-socials-item">
-        <a class="mobile-menu-socials-link link" href="https://www.instagram.com/pharmascocom/" target="_blank" rel="noopener noreferrer">Instagram</a>
-      </li>
-      <li class="mobile-menu-socials-item">
-        <a class="mobile-menu-socials-link link" href="https://www.youtube.com/@Pharmasco" target="_blank" rel="noopener noreferrer">Youtube</a>
-      </li>
-      <li class="mobile-menu-socials-item">
-        <a class="mobile-menu-socials-link link" href="https://www.facebook.com/Pharmasco/" target="_blank" rel="noopener noreferrer">Facebook</a>
       </li>
     </ul>
   </div>
