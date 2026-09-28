@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <link rel="shortcut icon" href="https://behealth.com.ua/assets/img/favicon.ico" type="img/png">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Завдання: Робота із запереченнями</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Roboto:wght@400;500;700;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.1.0/modern-normalize.css"
+    integrity="sha512-Y0MM+V6ymRKN2zStTqzQ227DWhhp4Mzdo6gnlRnuaNCbc+YN/ZH0sBCLTM4M0oSy9c9VKiCvd4Jk44aCLrNS5Q=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="./css/main.css" />
+  
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5BZZCV5DRK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-5BZZCV5DRK");
+  </script>
+</head>
+<body>
+  <div id="header-container"></div>
+  <main>
+    <section class="works">
+      <div class="container">
+        <h2 style="margin-bottom: 20px; text-align: center;">Форма навчального завдання: "Робота із запереченнями"</h2>
+        <h2 style="margin-bottom: 20px; text-align: center;">Третій навик другого пріоритету</h2>
+        
+        <!-- Блок інформації про учасників -->
+        <div id="participantsInfo" style="background: #eef; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-weight: bold;">
+          👤 Менеджер (РМ): <span id="displayRmName">—</span> | 🎯 Співробітник (МП): <span id="displayMpName">—</span>
+        </div>
+
+        <h3 style="margin-bottom: 20px ; line-height: 1.5; color: #949494;">Для відпрацювання навику роботи із запереченнями:<br>🟢1. Перевірте знання співробітника стосовно того що таке заперечення, як їх можна чути та опрацьовувати<br>🟢2. Після цього перейдіть до відпрацювання банку заперечень, приєднання або прояснення заперечень</h3>
+        
+        <ul class="button">
+          <li class="button-section" style="margin-bottom: 2px;"><button class="btn" type="button"><a href="./PV7a.html" style="text-decoration: none; font-size: smaller;" class="text__work">Банк заперечень</a></button></li>
+          <li class="button-section" style="margin-bottom: 2px;"><button class="btn" type="button"><a href="./PV7b.html" style="text-decoration: none; font-size: smaller;" class="text__work">Приєднання</a></button></li>
+          <li class="button-section" style="margin-bottom: 2px;"><button class="btn" type="button"><a href="./PV7c.html" style="text-decoration: none; font-size: smaller;" class="text__work">Прояснення</a></button></li>
+          <li class="button-section" style="margin-bottom: 2px;"><button class="btn" type="button"><a style="text-decoration: none; font-size: smaller;" class="text__work" href="./portfolio PV.html">Мій кабінет</a>
+                </button></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  
+  <div id="footer-container"></div>
+  
+  <script src="./js/menu.js"></script>
+  <script src="theme-toggle.js"></script>
+  <script src="tracking.js"></script>
+
+  <script src="user.js"></script>
+  
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const rmName = localStorage.getItem("currentRmName") || "Олександр Волянюк";
+      const mpName = localStorage.getItem("currentMpName") || "Не вказано";
+
+      document.getElementById('displayRmName').textContent = rmName;
+      document.getElementById('displayMpName').textContent = mpName;
+    });
+  </script>
+
+  <script src="headfoot.js"></script>
+  <script src="scroll.js"></script>
+  <script src="scrbtn.js"></script>
+<script src="zoom.js"></script>
+</body>
+</html>

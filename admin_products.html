@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Редактор продуктів | Адмін-панель</title>
+  <link rel="shortcut icon" href="https://behealth.com.ua/assets/img/favicon.ico" type="img/png">
+  <link rel="stylesheet" href="./css/main.css">
+  <style>
+    body { font-family: 'Roboto', sans-serif; background-color: #f4f6f9; padding: 20px; color: #333; }
+    .editor-container { max-width: 900px; margin: 30px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+    h2 { color: #2c3e50; margin-top: 0; }
+    h3 { color: #007acc; border-bottom: 2px solid #eef; padding-bottom: 8px; margin-top: 30px; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; font-weight: 500; margin-bottom: 5px; font-size: 14px; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 14px; box-sizing: border-box; }
+    .form-group textarea { height: 100px; resize: vertical; }
+    .btn-save { background: #27ae60; color: white; border: none; padding: 12px 20px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; margin-top: 20px; }
+    .btn-save:hover { background: #219653; }
+    .btn-create { background: #2980b9; color: white; border: none; padding: 8px 14px; font-size: 14px; border-radius: 4px; cursor: pointer; font-weight: 500; margin-bottom: 15px; display: inline-block; }
+    .btn-create:hover { background: #2471a3; }
+    .nav-back { display: inline-block; margin-bottom: 20px; color: #007acc; text-decoration: none; font-weight: 500; }
+    
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; }
+    .modal-box { background: #fff; padding: 25px; border-radius: 8px; width: 100%; max-width: 450px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+    .file-preview { display: flex; align-items: center; gap: 10px; margin-top: 5px; }
+    .file-preview img { width: 50px; height: 50px; object-fit: contain; border: 1px solid #cbd5e1; border-radius: 4px; background: #f8fafc; }
+  </style>
+</head>
+<body>
+  <div id="header-container"></div>
+  <div class="editor-container">
+    <a href="./admin.html" class="nav-back">&larr; Назад до адмін-панелі</a>
+    <h2>📦 Повний візуальний редактор сторінок продуктів</h2>
+    <p style="color: #64748b; margin-bottom: 15px;">Керуйте текстами всіх секцій препарату, зображеннями та посиланнями.</p>
+
+    <button type="button" class="btn-create" id="openModalBtn">➕ Створити новий продукт</button>
+
+    <form id="productEditForm">
+      <div class="form-group">
+        <label for="fileSelect">Оберіть файл продукту:</label>
+        <select id="fileSelect" required>
+          <option value="">⏳ Завантаження бази продуктів...</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="prodCategory">Категорія (для портфоліо):</label>
+        <select id="prodCategory" required>
+          <option value="gastro">Здоров'я ШКТ</option>
+          <option value="female">Жіноче здоров'я</option>
+          <option value="male">Чоловіче здоров'я</option>
+          <option value="kidneys">Здоров'я нирок</option>
+          <option value="endo">Ендокринологія</option>
+          <option value="neuro">Неврологія</option>
+        </select>
+      </div>
+
+      <h3>Основні дані</h3>
+      <div class="form-group">
+        <label>Назва препарату та випуск (наприклад: Пантофітол (капсули №20)):</label>
+        <input type="text" id="prodTitle" required>
+      </div>
+      <div class="form-group">
+        <label>Згенероване ім'я файлу:</label>
+        <input type="text" id="prodFilename" readonly style="background: #e2e8f0; color: #475569;">
+      </div>
+      <div class="form-group">
+        <label>Короткий слоган / Підзаголовок (H3 у шапці):</label>
+        <input type="text" id="prodSubtitle">
+      </div>
+      <div class="form-group">
+        <label>Короткий опис (для картки в каталозі):</label>
+        <textarea id="prodDescShort"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Повний опис (для детальної сторінки продукту):</label>
+        <textarea id="descLong"></textarea>
+      </div>
+
+      <!-- Вибір зображень через провідник комп'ютера -->
+      <div class="form-group">
+        <label>Головне зображення (ліворуч):</label>
+        <div class="file-preview">
+          <input type="file" id="imgMainFile" accept="image/*">
+          <img id="imgMainPreview" src="" alt="" style="display:none;">
+        </div>
+        <input type="hidden" id="imgMain">
+      </div>
+
+      <div class="form-group">
+        <label>Додаткове зображення (упаковка):</label>
+        <div class="file-preview">
+          <input type="file" id="imgSecFile" accept="image/*">
+          <img id="imgSecPreview" src="" alt="" style="display:none;">
+        </div>
+        <input type="hidden" id="imgSec">
+      </div>
+
+      <h3>Секції контенту (Блоки опису)</h3>
+      <div class="form-group">
+        <label>Блок 1 (Заголовок):</label><input type="text" id="sec1Title" value="Склад та активні речовини">
+        <label style="margin-top:5px;">Блок 1 (Текст / Список HTML):</label><textarea id="sec1Text"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Блок 2 (Заголовок):</label><input type="text" id="sec2Title" value="Властивості компонентів">
+        <label style="margin-top:5px;">Блок 2 (Текст / Список HTML):</label><textarea id="sec2Text"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Блок 3 (Заголовок):</label><input type="text" id="sec3Title" value="Рекомендації до застосування">
+        <label style="margin-top:5px;">Блок 3 (Текст / Список HTML):</label><textarea id="sec3Text"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Блок 4 (Заголовок):</label><input type="text" id="sec4Title" value="Спосіб застосування та дози">
+        <label style="margin-top:5px;">Блок 4 (Текст):</label><textarea id="sec4Text"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Блок 5 (Заголовок):</label><input type="text" id="sec5Title" value="Протипоказання">
+        <label style="margin-top:5px;">Блок 5 (Текст):</label><textarea id="sec5Text"></textarea>
+      </div>
+
+      <h3>Посилання для кнопок</h3>
+      <div class="form-group"><label>Кампейн:</label><input type="text" id="linkCampaign"></div>
+      <div class="form-group"><label>Відео (Вебінар):</label><input type="text" id="linkVideo"></div>
+      <div class="form-group"><label>Презентації (На візит):</label><input type="text" id="linkPresentation"></div>
+      <div class="form-group"><label>Інструкція:</label><input type="text" id="linkInstruction"></div>
+      <div class="form-group"><label>Тестування:</label><input type="text" id="linkTest"></div>
+      <div class="form-group"><label>Конкурентне оточення:</label><input type="text" id="linkCompetitor"></div>
+
+      <button type="submit" class="btn-save">💾 Зберегти зміни в базі продуктів</button>
+    </form>
+  </div>
+
+  <!-- Модальне вікно для створення нового продукту -->
+  <div class="modal-overlay" id="newProductModal">
+    <div class="modal-box">
+      <h3 style="margin-top: 0; color: #2980b9;">Створити новий продукт</h3>
+      <div class="form-group">
+        <label for="newProdTitleInput">Назва продукту:</label>
+        <input type="text" id="newProdTitleInput" placeholder="Наприклад: Остео Кер">
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+        <button type="button" id="closeModalBtn" style="background: #cbd5e1; border: none; padding: 8px 14px; border-radius: 4px; cursor: pointer;">Скасувати</button>
+        <button type="button" id="confirmCreateBtn" style="background: #27ae60; color: white; border: none; padding: 8px 14px; border-radius: 4px; cursor: pointer; font-weight: bold;">Згенерувати</button>
+      </div>
+    </div>
+  </div>
+<div id="footer-container"></div>
+  <script src="./js/menu.js"></script>
+  <script src="theme-toggle.js"></script>
+  <script src="tracking.js"></script>
+  <script src="headfoot.js"></script>
+<script src="scrbtn.js"></script>
+  <script>
+    const PRODUCTS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbytaIqinqy-8usncHA3Ndhr10ob36OZ8t-2s5i-lq5o2KbnWAk56oYBY8DTS8WI6W0K/exec";
+
+    // 1. АВТОМАТИЧНЕ ЗАВАНТАЖЕННЯ СПИСКУ ПРОДУКТІВ З ТАБЛИЦІ
+    document.addEventListener("DOMContentLoaded", async () => {
+      const select = document.getElementById("fileSelect");
+      try {
+        const response = await fetch(`${PRODUCTS_SCRIPT_URL}?action=getCatalog`);
+        const result = await response.json();
+        
+        if (result.status === "success") {
+          select.innerHTML = '<option value="">-- Оберіть файл продукту --</option>'; // Очищаємо текст завантаження
+          
+          result.data.forEach(prod => {
+            if (prod.filename) {
+              const opt = document.createElement("option");
+              opt.value = prod.filename;
+              // Виводимо красиву назву, а в дужках залишаємо ID файлу
+              opt.textContent = `${prod.title || 'Без назви'} (${prod.filename})`;
+              select.appendChild(opt);
+            }
+          });
+        } else {
+          select.innerHTML = '<option value="">❌ Помилка завантаження бази</option>';
+        }
+      } catch (err) {
+        console.error("Помилка завантаження списку продуктів:", err);
+        select.innerHTML = '<option value="">❌ Помилка з\'єднання з сервером</option>';
+      }
+    });
+
+    // Функція транслітерації для генерації назви файлу англійською
+    function transliterate(text) {
+      const ukrMap = {
+        'а':'a', 'б':'b', 'в':'v', 'г':'h', 'ґ':'g', 'д':'d', 'е':'e', 'є':'ye', 'ж':'zh',
+        'з':'z', 'и':'y', 'і':'i', 'ї':'yi', 'й':'y', 'к':'k', 'л':'l', 'м':'m', 'н':'n',
+        'о':'o', 'п':'p', 'р':'r', 'с':'s', 'т':'t', 'у':'u', 'ф':'f', 'х':'kh', 'ц':'ts',
+        'ч':'ch', 'ш':'sh', 'щ':'shch', 'ь':'', 'ю':'yu', 'я':'ya'
+      };
+      return text.toLowerCase().split('').map(char => {
+        if (ukrMap[char] !== undefined) return ukrMap[char];
+        if (/[a-z0-9]/.test(char)) return char;
+        return '_';
+      }).join('').replace(/_+/g, '_').replace(/^_|_$/g, '');
+    }
+
+    // Обробка завантаження зображень через провідник та конвертація в Base64
+    function handleImageUpload(inputElement, hiddenInputId, previewImgId) {
+      inputElement.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(uploadEvent) {
+            const base64String = uploadEvent.target.result;
+            document.getElementById(hiddenInputId).value = base64String;
+            const preview = document.getElementById(previewImgId);
+            preview.src = base64String;
+            preview.style.display = "block";
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+
+    handleImageUpload(document.getElementById("imgMainFile"), "imgMain", "imgMainPreview");
+    handleImageUpload(document.getElementById("imgSecFile"), "imgSec", "imgSecPreview");
+
+    // Модальне вікно створення
+    const modal = document.getElementById("newProductModal");
+    document.getElementById("openModalBtn").addEventListener("click", () => {
+      modal.style.display = "flex";
+    });
+    document.getElementById("closeModalBtn").addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    document.getElementById("confirmCreateBtn").addEventListener("click", () => {
+      const title = document.getElementById("newProdTitleInput").value.trim();
+      if (!title) {
+        alert("Введіть назву продукту!");
+        return;
+      }
+
+      const translitName = transliterate(title) + ".html";
+      const select = document.getElementById("fileSelect");
+
+      let exists = false;
+      for (let i = 0; i < select.options.length; i++) {
+        if (select.options[i].value === translitName) {
+          exists = true;
+          break;
+        }
+      }
+
+      if (!exists) {
+        const opt = document.createElement("option");
+        opt.value = translitName;
+        opt.textContent = `${title} (${translitName})`;
+        select.appendChild(opt);
+      }
+
+      select.value = translitName;
+      document.getElementById("prodTitle").value = title;
+      document.getElementById("prodFilename").value = translitName;
+
+      // Очищення полів
+      document.getElementById("prodSubtitle").value = "";
+      document.getElementById("prodDescShort").value = "";
+      document.getElementById("descLong").value = "";
+      document.getElementById("imgMain").value = "";
+      document.getElementById("imgMainPreview").style.display = "none";
+      document.getElementById("imgSec").value = "";
+      document.getElementById("imgSecPreview").style.display = "none";
+      document.getElementById("sec1Text").value = "";
+      document.getElementById("sec2Text").value = "";
+      document.getElementById("sec3Text").value = "";
+      document.getElementById("sec4Text").value = "";
+      document.getElementById("sec5Text").value = "";
+      document.getElementById("linkCampaign").value = "";
+      document.getElementById("linkVideo").value = "";
+      document.getElementById("linkPresentation").value = "";
+      document.getElementById("linkInstruction").value = "";
+      document.getElementById("linkTest").value = "";
+      document.getElementById("linkCompetitor").value = "";
+
+      modal.style.display = "none";
+      document.getElementById("newProdTitleInput").value = "";
+      alert(`✅ Створено новий файл: ${translitName}`);
+    });
+
+    // Автоматичне оновлення імені файлу при зміні назви
+    document.getElementById("prodTitle").addEventListener("input", (e) => {
+      const title = e.target.value;
+      if (title) {
+        document.getElementById("prodFilename").value = transliterate(title) + ".html";
+      }
+    });
+
+    // Завантаження даних продукту з таблиці при виборі зі списку
+    document.getElementById("fileSelect").addEventListener("change", async (e) => {
+      const fileName = e.target.value;
+      if (!fileName) return;
+
+      document.getElementById("prodFilename").value = fileName;
+
+      try {
+        const response = await fetch(`${PRODUCTS_SCRIPT_URL}?product=${fileName}`);
+        const data = await response.json();
+        if (data.status === "success") {
+          document.getElementById("prodCategory").value = data.category || "gastro";
+          document.getElementById("prodTitle").value = data.title || "";
+          document.getElementById("prodSubtitle").value = data.subtitle || "";
+          document.getElementById("prodDescShort").value = data.descShort || "";
+          document.getElementById("descLong").value = data.descLong || ""; 
+          
+          if (data.imgMain) {
+            document.getElementById("imgMain").value = data.imgMain;
+            const p1 = document.getElementById("imgMainPreview");
+            p1.src = data.imgMain; p1.style.display = "block";
+          }
+          if (data.imgSec) {
+            document.getElementById("imgSec").value = data.imgSec;
+            const p2 = document.getElementById("imgSecPreview");
+            p2.src = data.imgSec; p2.style.display = "block";
+          }
+
+          document.getElementById("sec1Title").value = data.sec1Title || "Склад та активні речовини";
+          document.getElementById("sec1Text").value = data.sec1Text || "";
+          document.getElementById("sec2Title").value = data.sec2Title || "Властивості компонентів";
+          document.getElementById("sec2Text").value = data.sec2Text || "";
+          document.getElementById("sec3Title").value = data.sec3Title || "Рекомендації до застосування";
+          document.getElementById("sec3Text").value = data.sec3Text || "";
+          document.getElementById("sec4Title").value = data.sec4Title || "Спосіб застосування та дози";
+          document.getElementById("sec4Text").value = data.sec4Text || "";
+          document.getElementById("sec5Title").value = data.sec5Title || "Протипоказання";
+          document.getElementById("sec5Text").value = data.sec5Text || "";
+
+          document.getElementById("linkCampaign").value = data.linkCampaign || "";
+          document.getElementById("linkVideo").value = data.linkVideo || "";
+          document.getElementById("linkPresentation").value = data.linkPresentation || "";
+          document.getElementById("linkInstruction").value = data.linkInstruction || "";
+          document.getElementById("linkTest").value = data.linkTest || "";
+          document.getElementById("linkCompetitor").value = data.linkCompetitor || "";
+        }
+      } catch (err) {
+        console.log("Новий товар.");
+      }
+    });
+
+    // Збереження даних (відправка payload)
+    document.getElementById("productEditForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      
+      const filename = document.getElementById("prodFilename").value;
+      const category = document.getElementById("prodCategory").value;
+      const title = document.getElementById("prodTitle").value;
+      const subtitle = document.getElementById("prodSubtitle").value;
+      const descShort = document.getElementById("prodDescShort").value;
+      const descLong = document.getElementById("descLong").value;
+      const imgMain = document.getElementById("imgMain").value;
+
+      const payload = {
+        filename: filename,
+        category: category,
+        title: title,
+        subtitle: subtitle,
+        descShort: descShort,
+        descLong: descLong,
+        imgMain: imgMain,
+        imgSec: document.getElementById("imgSec").value,
+        sec1Title: document.getElementById("sec1Title").value,
+        sec1Text: document.getElementById("sec1Text").value,
+        sec2Title: document.getElementById("sec2Title").value,
+        sec2Text: document.getElementById("sec2Text").value,
+        sec3Title: document.getElementById("sec3Title").value,
+        sec3Text: document.getElementById("sec3Text").value,
+        sec4Title: document.getElementById("sec4Title").value,
+        sec4Text: document.getElementById("sec4Text").value,
+        sec5Title: document.getElementById("sec5Title").value,
+        sec5Text: document.getElementById("sec5Text").value,
+        linkCampaign: document.getElementById("linkCampaign").value,
+        linkVideo: document.getElementById("linkVideo").value,
+        linkPresentation: document.getElementById("linkPresentation").value,
+        linkInstruction: document.getElementById("linkInstruction").value,
+        linkTest: document.getElementById("linkTest").value,
+        linkCompetitor: document.getElementById("linkCompetitor").value,
+        
+        // Інструкція для скрипта портфоліо (залишаємо для зворотної сумісності)
+        updatePortfolio: true,
+        portfolioCardHtml: `
+          <li class="description">
+            <div class="overflow">
+              <picture><img src="${imgMain}" alt="${title}" width="450" height="294" loading="lazy" /></picture>
+              <a class="atext" href="./product.html?id=${filename}">
+                <div class="bg"><p class="bg__uppertext">${subtitle || title}</p></div>
+              </a>
+            </div>
+            <div class="text">
+              <h3 class="text__work">${title}</h3>
+              <p class="text__sub">${descShort || 'Дієтична добавка'}</p>
+            </div>
+          </li>
+        `
+      };
+
+      try {
+        await fetch(PRODUCTS_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        alert("✅ Продукт успішно збережено в базі!");
+      } catch (err) {
+        alert("❌ Помилка при збереженні.");
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><link rel="shortcut icon" href="https://behealth.com.ua/assets/img/favicon.ico" type="img/png">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Стандарти</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Roboto:wght@400;500;700;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.1.0/modern-normalize.css"
+    integrity="sha512-Y0MM+V6ymRKN2zStTqzQ227DWhhp4Mzdo6gnlRnuaNCbc+YN/ZH0sBCLTM4M0oSy9c9VKiCvd4Jk44aCLrNS5Q=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="./css/main.css" />
+  
+
+<!-- Google tag (gtag.js) -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5BZZCV5DRK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-5BZZCV5DRK");
+</script>
+<script>
+  const email = localStorage.getItem("allowedEmail");
+  if (email) {
+    gtag("set", "user_properties", {
+      user_id: email
+    });
+  }
+</script>
+<script>
+  function sha256(input) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(input);
+    return crypto.subtle.digest("SHA-256", data).then(hash => {
+      return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+    });
+  }
+</script>
+</head>
+<body>
+  <div id="header-container"></div>
+  <main>
+    <section class="works">
+      <div class="container">
+        <h2 class="works__title">работы</h2>
+        
+        <ul class="works-cards">
+          <li class="description">
+            <div class="overflow">
+              <picture>
+                <img src="./PHARM/check.jpg" alt="Критерії оцінки МП" width="450" height="294" loading="lazy" />
+              </picture>
+              
+              <a class="atext" target="_blank" rel="noopener noreferrer" href="https://docs.google.com/spreadsheets/d/1v_kSyBYQ1Xm0PjlTHELeSSnHGyiSUAc6/edit?usp=drive_link&ouid=101432890503359327647&rtpof=true&sd=true">
+                <div class="bg">
+                  <p class="bg__uppertext">
+                  Файл містить стандарти ведення візитів, які розроблені для забезпечення високої якості та ефективності роботи МП з партнерами.
+                </p>
+                </div>
+              </a>
+            </div>
+            <div class="text">
+              <h3 class="text__work">Критерії оцінки МП</h3>
+              <p class="text__sub">Стандарти ведення візитів</p>
+            </div>
+          </li>
+          <li class="description">
+            <div class="overflow">
+              <picture>
+                <img src="./PHARM/pv.jpg" alt="Критерії оцінки РМ" width="450" height="294" loading="lazy" />
+              </picture>
+              
+              <a class="atext" target="_blank" rel="noopener noreferrer" href="https://docs.google.com/spreadsheets/d/1F7tI9fugKmG2iFIO-SiWyED7zsxql6uL/edit?usp=sharing&ouid=101432890503359327647&rtpof=true&sd=true">
+                <div class="bg">
+                  <p class="bg__uppertext">
+                  Файл містить стандарти ведення візитів, які розроблені для забезпечення високої якості та ефективності роботи МП з партнерами.
+                </p>
+                </div>
+              </a>
+            </div>
+            <div class="text">
+              <h3 class="text__work">Критерії оцінки РM</h3>
+              <p class="text__sub">Стандарти ведення подвійних візитів</p>
+            </div>
+          </li>
+          <li class="description">
+            <div class="overflow">
+              <picture>
+                <img src="./PHARM/suck.jpg" alt="ІПР" width="450" height="294" loading="lazy" />
+              </picture>
+              
+              <a class="atext" target="_blank" rel="noopener noreferrer" href="">
+                <div class="bg">
+                  <p class="bg__uppertext">
+                  Файл містить індивідуальний план розвитку (ІПР) для кожного співробітника МП, який розроблений для забезпечення професійного зростання та розвитку команди.
+                </p>
+                </div>
+              </a>
+            </div>
+            <div class="text">
+              <h3 class="text__work">ІПР</h3>
+              <p class="text__sub">Індивідуальний план розвитку</p>
+            </div>
+          </li>
+          <li class="description">
+            <div class="overflow">
+              <picture>
+                <img src="./PHARM/meth.jpg" alt="Методичне керівництво" width="450" height="294" loading="lazy" />
+              </picture>
+              <a class="atext" target="_blank" rel="noopener noreferrer" href="https://drive.google.com/file/d/1OekIFsc1Lsd6IkKtSvQ5Mq8R9NsLrqk8/view?usp=sharing">
+                <div class="bg">
+                  <p class="bg__uppertext">
+                  Файл містить методичне керівництво, яке розроблено для забезпечення високої якості та ефективності роботи МП з партнерами.
+                </p>
+                </div>
+              </a>
+            </div>
+            <div class="text">
+              <h3 class="text__work">Методичне керівництво</h3>
+              <p class="text__sub">Стандарти роботи МП</p>
+            </div>
+          </li>
+           <li class="description">
+            <div class="overflow">
+              <picture>
+                <img src="./PHARM/visit.jpg" alt="Стандарти візитів МП" width="450" height="294" loading="lazy" />
+              </picture>
+            <a class="atext" target="_blank" rel="noopener noreferrer" href="./stand1.html">
+              <div class="bg">  
+                    <p class="bg__uppertext">
+                      Містить покроковий опис етапів візитів до різних партнерів, який розроблено для забезпечення високої якості та ефективності роботи МП з партнерами.
+                    </p>
+                  </div>
+                </a>
+            </div>
+            <div class="text">
+              <h3 class="text__work">Стандарти візитів МП</h3>
+              <p class="text__sub">Візити до різних партнерів</p>
+            </div>
+          </li>
+          <li class="description">
+            <div class="overflow">
+              <picture>
+                <img src="./PHARM/grid.jpg" alt="Промо грід" width="450" height="294" loading="lazy" />
+              </picture>
+                <a class="atext" target="_blank" rel="noopener noreferrer" href="https://docs.google.com/spreadsheets/d/15ccVC93l0eneZAHQd5E5BEyWNl8AgdCL/edit?usp=sharing&ouid=101432890503359327647&rtpof=true&sd=true">
+                <div class="bg">
+                  <p class="bg__uppertext">
+                    Файл містить промо грід, який розроблений для забезпечення високої якості та ефективності роботи МП з партнерами.
+                  </p>
+                </div>
+              </a>
+            </div>
+            <div class="text">
+              <h3 class="text__work">Промо грід</h3>
+              <p class="text__sub">Стандарти норми візитів</p>
+            </div>
+          </li>
+          <li class="description">
+            <div class="overflow">
+              <picture>
+                <img src="./PHARM/tren.jpg" alt="Заплановані тренінги" width="450" height="294" loading="lazy" />
+              </picture>
+              
+              <a class="atext" target="_blank" rel="noopener noreferrer" href="https://docs.google.com/spreadsheets/d/1GfeebQH67JT0rTjtEi-m_lLT6YwmYft3/edit?usp=sharing&ouid=101432890503359327647&rtpof=true&sd=true">
+                <div class="bg">
+                  <p class="bg__uppertext">
+                  Тут буде з'являтися інформація по запланованих тренінгах, які розроблені для забезпечення високої якості та ефективності Вашої роботи, і переліку їх учасників.
+                </p>
+                </div>
+              </a>
+            </div>
+            <div class="text">
+              <h3 class="text__work">Заплановані тренінги</h3>
+              <p class="text__sub">Підключайтеся, якщо бажаєте</p>
+            </div>
+          </li>
+          <li class="description">
+            <div class="overflow">
+              <picture>
+                <img src="./PHARM/crm.jpg" alt="CRM" width="450" height="294" loading="lazy" />
+              </picture>
+            <a class="atext" target="_blank" rel="noopener noreferrer" href="./tr/користування crm телефон.pdf">
+                <div class="bg">
+                  <p class="bg__uppertext">
+                    файл містить покрокову інструкцію по роботі в CRM системі Quadrasoft, яка розроблена для забезпечення високої якості та ефективності Вашої роботи.
+                  </p>
+                </div>
+              </a>
+            </div>
+            <div class="text">
+              <h3 class="text__work">СRM</h3>
+              <p class="text__sub">Керівництво по роботі в CRM</p>
+            </div>
+          </li>
+           <li class="description">
+            <div class="overflow">
+              <picture>
+                <img src="./PHARM/anons.jpg" alt="Корисні книги" width="450" height="294" loading="lazy" />
+              </picture>
+            <a class="atext" target="_blank" rel="noopener noreferrer" href="./stand2.html">
+              <div class="bg">  
+                  <p class="bg__uppertext">
+                  Сторінка містить посилання на корисні книги, які допоможуть Вам забезпечити високу якість та ефективність Вашої роботи.
+                </p>
+                </div>
+              </a>
+            </div>
+            <div class="text">
+              <h3 class="text__work">Корисні книги</h3>
+              <p class="text__sub">Для саморозвитку та нових знань</p>
+            </div>
+          </li>
+        </ul>
+        <ul class="button" style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+          <li class="button-section"><button class="btn" type="button"><a style="text-decoration: none; font-size: smaller;" class="text__work" href="./cabinet.html">До особистого кабінету</a></button></li>
+        </ul>  
+        </div>
+    </section>
+  </main>
+
+  <div id="footer-container"></div>
+  <script src="./js/menu.js"></script>
+  <script src="theme-toggle.js"></script>
+  <script>
+function handleProtectedLink(event, url) {
+    event.preventDefault();
+
+    // Перевіряємо, чи пароль уже збережений
+    let storedPassword = localStorage.getItem("protectedPassword");
+    
+    if (!storedPassword) {
+        let password = prompt("Введіть пароль:");
+        if (password === "secret123") { // Замініть на ваш реальний пароль
+            localStorage.setItem("protectedPassword", password);
+            window.location.href = url;
+        } else {
+            alert("Неправильний пароль!");
+        }
+    } else {
+        // Якщо пароль уже введений і збігається, відкриваємо посилання
+        if (storedPassword === "secret123") { 
+            window.location.href = url;
+        } else {
+            alert("Неправильний пароль!");
+        }
+    }
+}
+</script>
+<script src="tracking.js"></script>
+<script>
+  // Кнопка "До гори"
+  const scrollTopBtn = document.getElementById("scrollTopBtn");
+  window.onscroll = function() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      scrollTopBtn.style.display = "block";
+    } else {
+      scrollTopBtn.style.display = "none";
+    }
+  };
+
+  scrollTopBtn.onclick = function() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  };
+</script>
+<script>
+        function showPasswordPrompt(event, url) {
+            event.preventDefault(); // Зупиняємо стандартне відкриття посилання
+            
+            if (localStorage.getItem("accessGranted") === "true") {
+                window.location.href = url; // Якщо пароль вже введено раніше, переходимо автоматично
+                return;
+            }
+
+            const password = prompt("Введіть пароль:");
+            const correctPassword = "12345"; // Замініть на реальний пароль
+
+            if (password === correctPassword) {
+                localStorage.setItem("accessGranted", "true"); // Зберігаємо статус входу
+                window.location.href = url; // Переходимо до захищеного контенту
+            } else {
+                alert("Неправильний пароль!");
+            }
+        }
+    </script>
+<script src="headfoot.js"></script>
+<script src="scroll.js"></script>
+<script src="scrbtn.js"></script>
+<script src="zoom.js"></script>
+</body>
+
+</html>

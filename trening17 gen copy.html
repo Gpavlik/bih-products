@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head><link rel="shortcut icon" href="https://behealth.com.ua/assets/img/favicon.ico" type="img/png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Генератор пропозиції</title>
+  <style>
+   
+    h2{
+      text-align: center;
+      color: #005fbf;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+    label::before {
+      content: attr(data-icon);
+      font-size: 1.2em;
+      margin-right: 8px;
+    }
+    select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #d0d7df;
+      border-radius: 8px;
+      background-color: #ffffff;
+    }
+    button {
+      background-color: #005fbf;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0048a2;
+    }
+    .output {
+      margin-top: 20px;
+      font-size: 1.1em;
+      background: #eaf0f8;
+      padding: 12px;
+      border-radius: 10px;
+      border-left: 5px solid #005fbf;
+      min-height: 80px;
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Roboto:wght@400;500;700;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.1.0/modern-normalize.css"
+    integrity="sha512-Y0MM+V6ymRKN2zStTqzQ227DWhhp4Mzdo6gnlRnuaNCbc+YN/ZH0sBCLTM4M0oSy9c9VKiCvd4Jk44aCLrNS5Q=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="./css/main.css" />
+  
+
+<!-- Google tag (gtag.js) -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5BZZCV5DRK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-5BZZCV5DRK");
+</script>
+<script>
+  const email = localStorage.getItem("allowedEmail");
+  if (email) {
+    gtag("set", "user_properties", {
+      user_id: email
+    });
+  }
+</script>
+<script>
+  function sha256(input) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(input);
+    return crypto.subtle.digest("SHA-256", data).then(hash => {
+      return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+    });
+  }
+</script>
+</head>
+
+<body>
+  <div id="header-container"></div>
+  <main>
+    <section class="works">
+      <div class="container">
+  <h1 style="text-align: center;">🎯 Генератор Альтернатив Знижці</h1>
+
+  <label for="institution">Тип установи:</label>
+  <select id="institution">
+    <option value="державна">Державна лабораторія</option>
+    <option value="приватна">Приватна лабораторія</option>
+  </select>
+
+  <label for="disc">DISC-профіль партнера:</label>
+  <select id="disc">
+    <option value="D">D — Рішучий</option>
+    <option value="I">I — Впливовий</option>
+    <option value="S">S — Стабільний</option>
+    <option value="C">C — Аналітичний</option>
+  </select>
+
+  <label for="situation">Ситуація:</label>
+  <select id="situation">
+    <option value="старт">Старт</option>
+    <option value="тендер">Тендер</option>
+    <option value="масштабування">Масштабування</option>
+  </select>
+
+  <label for="need">Основна потреба партнера:</label>
+  <select id="need">
+    <option value="бюджет">Бюджет</option>
+    <option value="швидкість">Швидкість</option>
+    <option value="сервіс">Сервіс</option>
+    <option value="надійність">Надійність</option>
+  </select>
+
+  <button style="margin-top: 20px;" class="btn" onclick="generate()">🔄 Згенерувати фразу</button>
+  <button class="btn" onclick="window.location.href='./trening17.html'"Мій кабінет
+                /button>
+  <div id="result"></div>
+
+  <!-- Кнопки після блоку результату -->
+<div id="actions" style="margin-top: 10px; position: relative; display: flex; justify-content: center; gap: 10px;">
+  <button class="btn" onclick="copyText()">Копіювати</button>
+  <button  class="btn" onclick="sendViber()">Viber</button>
+  <button class="btn" onclick="sendTelegram()">Telegram</button>
+  <button class="btn" onclick="sendWhatsApp()">WhatsApp</button>
+</div>
+      </div>
+</section>
+  </main>
+  <div id="footer-container"></div>
+  <script>
+    const data = {
+      institution: {
+        державна: ["Враховуючи специфіку державної лабораторії, ми адаптували рішення без потреби формальної знижки.",
+                   "Модель співпраці враховує ваші бюджетні обмеження — без прямого дисконту."],
+        приватна: ["Приватна лабораторія — це про гнучкість. Тому ми пропонуємо цінність у сервісі, а не в цифрах.",
+                   "Замість знижки — пріоритетний сервіс та мінімізація логістичних витрат."]
+      },
+      disc: {
+        D: ["Розуміємо, вам важливо діяти швидко — тому наш підхід без зайвих погоджень.",
+            "Без зайвих етапів: замість знижки — старт без затримок та чіткий KPI."],
+        I: ["Ваша роль в рішенні критична — ми створюємо умови, де ви можете проявити вплив.",
+            "Разом з вами створюємо win-win. Замість знижки — можливість показати результат."],
+        S: ["Ми будуємо довіру — тому пропонуємо стабільність без ілюзії знижок.",
+            "Фіксовані умови — це наша альтернатива знижці для довгострокових відносин."],
+        C: ["Детальна структура пропозиції замість знижки — ми відкрито обґрунтовуємо кожну цифру.",
+            "Альтернатива знижці — оптимізована модель з об'єктивними даними."]
+      },
+      situation: {
+        старт: ["На старті важлива простота — ми беремо на себе логістичні турботи.",
+                "Щоб старт був легким, ми надаємо супровід, замість формального дисконту."],
+        тендер: ["У тендері важлива прозорість — ми пропонуємо повну модель вартості без прихованих знижок.",
+                 "Замість дисконтів — адаптована комерційна пропозиція з чіткими умовами."],
+        масштабування: ["Масштабування — це про ефективність. Ми оптимізуємо обсяг без знижок.",
+                        "При зростанні — пропонуємо пакетне рішення, яке фактично є знижкою."]
+      },
+      need: {
+        бюджет: ["Модель економить бюджет, не втрачаючи якість.",
+                 "Ми пропонуємо таку ціну, яка вже враховує знижку — без її назви."],
+        швидкість: ["Швидке реагування — наша альтернатива будь-яким дисконтам.",
+                    "У швидкості — наша перевага. Ми стартуємо без пауз."],
+        сервіс: ["Преміум-сервіс замість знижки — ви отримуєте більше, ніж очікуєте.",
+                 "Рівень сервісу компенсує формальну відсутність дисконту."],
+        надійність: ["Надійність у постачанні — це головне, і ми гарантуємо це замість знижки.",
+                     "Фіксовані поставки та гарантії — це наша альтернатива знижці."]
+      }
+    };
+
+    function getRandom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function generate() {
+      const inst = document.getElementById("institution").value;
+      const disc = document.getElementById("disc").value;
+      const sit = document.getElementById("situation").value;
+      const need = document.getElementById("need").value;
+
+      const phrase = [
+        getRandom(data.institution[inst]),
+        getRandom(data.disc[disc]),
+        getRandom(data.situation[sit]),
+        getRandom(data.need[need])
+      ].join(" ");
+
+      document.getElementById("result").innerHTML = `<strong>У відповідь на Ваш запит можемо запропонувати:</strong><br>${phrase}`;
+    }
+    // Функція копіювання
+  function copyText() {
+    const text = document.getElementById("result").innerText.replace('У відповідь на Ваш запит можемо запропонувати:', '').trim();
+    navigator.clipboard.writeText(text).then(() => alert("✅ Скопійовано!"));
+  }
+
+  // Viber
+  function sendViber() {
+    const msg = encodeURIComponent(document.getElementById("result").innerText);
+    window.open(`viber://forward?text=${msg}`);
+  }
+
+  // Telegram
+  function sendTelegram() {
+    const msg = encodeURIComponent(document.getElementById("result").innerText);
+    window.open(`https://t.me/share/url?url=&text=${msg}`, '_blank');
+  }
+
+  // WhatsApp
+  function sendWhatsApp() {
+    const msg = encodeURIComponent(document.getElementById("result").innerText);
+    window.open(`https://wa.me/?text=${msg}`, '_blank');
+  }
+  </script>
+<script src="headfoot.js"></script>
+<script src="scroll.js"></script>
+<script src="scrbtn.js"></script>
+<script src="zoom.js"></script>
+</body>
+</html>

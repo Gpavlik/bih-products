@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <link
+      rel="shortcut icon"
+      href="https://behealth.com.ua/assets/img/favicon.ico"
+      type="img/png"
+    />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Продукти</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Roboto:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.1.0/modern-normalize.css"
+      integrity="sha512-Y0MM+V6ymRKN2zStTqzQ227DWhhp4Mzdo6gnlRnuaNCbc+YN/ZH0sBCLTM4M0oSy9c9VKiCvd4Jk44aCLrNS5Q=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./css/main.css" />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-5BZZCV5DRK"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-5BZZCV5DRK");
+    </script>
+    <script>
+      const email = localStorage.getItem("allowedEmail");
+      if (email) {
+        gtag("set", "user_properties", {
+          user_id: email,
+        });
+      }
+    </script>
+    <script>
+      function sha256(input) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(input);
+        return crypto.subtle.digest("SHA-256", data).then((hash) => {
+          return Array.from(new Uint8Array(hash))
+            .map((b) => b.toString(16).padStart(2, "0"))
+            .join("");
+        });
+      }
+    </script>
+  </head>
+
+  <body>
+</div>
+    <div id="header-container"></div>
+    <main>
+      <section class="works">
+        <div class="container">
+          <!-- СПОЙЛЕР 1: Жіноче здоров'я -->
+          <details id="female" class="spoiler-group">
+            <summary class="spoiler-header">+ Жіноче здоров'я</summary>
+            <div class="spoiler-content">
+              <ul class="works-cards"></ul>
+            </div>
+          </details>
+
+          <!-- СПОЙЛЕР 2: Чоловіче здоров'я -->
+          <details id="male" class="spoiler-group">
+            <summary class="spoiler-header">+ Чоловіче здоров'я</summary>
+            <div class="spoiler-content">
+              <ul class="works-cards"></ul>
+            </div>
+          </details>
+
+          <!-- СПОЙЛЕР 3: Здоров'я нирок -->
+          <details id="kidneys" class="spoiler-group">
+            <summary class="spoiler-header">+ Здоров'я нирок</summary>
+            <div class="spoiler-content">
+              <ul class="works-cards"></ul>
+            </div>
+          </details>
+
+          <!-- СПОЙЛЕР 4: Здоров'я ШКТ -->
+          <details id="gastro" class="spoiler-group">
+            <summary class="spoiler-header">+ Здоров'я ШКТ</summary>
+            <div class="spoiler-content">
+              <ul class="works-cards"></ul>
+            </div>
+          </details>
+
+          <!-- СПОЙЛЕР 5: Ендокринологія -->
+          <details id="endo" class="spoiler-group">
+            <summary class="spoiler-header">+ Ендокринологія</summary>
+            <div class="spoiler-content">
+              <ul class="works-cards"></ul>
+            </div>
+          </details>
+
+          <!-- СПОЙЛЕР 6: Неврологія -->
+          <details id="neuro" class="spoiler-group">
+            <summary class="spoiler-header">+ Неврологія</summary>
+            <div class="spoiler-content">
+              <ul class="works-cards"></ul>
+            </div>
+          </details>
+          <ul
+            class="button"
+            style="
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              margin-top: 20px;
+            "
+          >
+            <li class="button-section">
+              <button class="btn" type="button">
+                <a
+                  style="text-decoration: none; font-size: smaller"
+                  class="text__work"
+                  href="./cabinet.html"
+                  >До особистого кабінету</a
+                >
+              </button>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="./js/menu.js"></script>
+    <script src="theme-toggle.js"></script>
+    <script src="tracking.js"></script>
+    <script src="headfoot.js"></script>
+    <script src="spoiler.js"></script>
+    <script src="scrbtn.js"></script>
+    <script src="zoom.js"></script>
+    <script src="./js/catalog.js"></script>
+  </body>
+</html>
