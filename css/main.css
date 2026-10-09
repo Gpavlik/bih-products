@@ -2000,7 +2000,7 @@ img {
   position: fixed;
   bottom: 20px;
   right: 50px;
-  z-index: 999;
+  z-index: 1000;
   background-color: var(--brand-color);
   color: white;
   border: none;
