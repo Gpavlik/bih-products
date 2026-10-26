@@ -64,10 +64,7 @@ function mascotAction(action) {
       if (testBtn) testBtn.click();
       break;
     case 'portfolio':
-      window.location.href = "./portfolio products.html";
-      break;
-    case 'profile':
-      window.location.href = "./cabinet.html";
+      window.location.href = "./index.html";
       break;
     default:
       console.warn("Невідома дія маскота:", action);
