@@ -484,6 +484,27 @@
 </div>
 
 <script>
+  // Допоміжна функція: Автоматична конвертація посилань Google Drive & Slides у режим перегляду
+  function formatDriveUrl(url) {
+    if (!url) return '';
+    let formatted = url.trim();
+
+    // 1. Google Drive PDF / файли -> /preview
+    if (formatted.includes('drive.google.com/file/d/')) {
+      formatted = formatted.replace(/\/file\/d\/([^\/]+)\/(view|edit).*/, '/file/d/$1/preview');
+      if (!formatted.includes('/preview')) {
+        formatted = formatted.replace(/\/file\/d\/([^\/]+)\/?$/, '/file/d/$1/preview');
+      }
+    }
+
+    // 2. Google Slides -> /present
+    if (formatted.includes('docs.google.com/presentation/d/')) {
+      formatted = formatted.replace(/\/presentation\/d\/([^\/]+)\/(edit|view).*/, '/presentation/d/$1/present');
+    }
+
+    return formatted;
+  }
+
   // Логіка керування відкриттям медіатеки
   function openMediaListModal(type) {
     // Закриваємо меню маскота
@@ -505,7 +526,7 @@
 
     // Якщо матеріал лише один — відкриваємо одразу в новій вкладці
     if (items.length === 1) {
-      window.open(items[0].url, '_blank');
+      window.open(formatDriveUrl(items[0].url), '_blank');
       return;
     }
 
@@ -519,11 +540,12 @@
     }
 
     items.forEach(item => {
+      const formattedUrl = formatDriveUrl(item.url);
       const row = document.createElement('div');
       row.className = 'media-card-item';
       row.innerHTML = `
         <span class="media-card-title">${item.title}</span>
-        <a href="${item.url}" target="_blank" class="media-card-btn">Відкрити ↗</a>
+        <a href="${formattedUrl}" target="_blank" class="media-card-btn">Відкрити ↗</a>
       `;
       listEl.appendChild(row);
     });
@@ -535,10 +557,16 @@
     document.getElementById('mediaListModal').classList.remove('active');
   }
 
-  // Оновлення лічильників матеріалів (викликається після завантаження продукту)
+  // Оновлення лічильників матеріалів (з автоконвертацією посилань)
   window.updateMediaBadges = function(videos, presentations) {
-    window.currentProductMedia.videos = videos || [];
-    window.currentProductMedia.presentations = presentations || [];
+    window.currentProductMedia.videos = (videos || []).map(v => ({
+      ...v,
+      url: formatDriveUrl(v.url)
+    }));
+    window.currentProductMedia.presentations = (presentations || []).map(p => ({
+      ...p,
+      url: formatDriveUrl(p.url)
+    }));
 
     const vidBadge = document.getElementById('badgeVideoCount');
     const presBadge = document.getElementById('badgePresCount');
