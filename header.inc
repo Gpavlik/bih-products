@@ -35,6 +35,7 @@
     <!-- Кнопки управління (Виправлено: кнопка та посилання рознесені) -->
     <div class="header__actions">
       <button type="button" class="btn" onclick="toggleDarkMode()">Тема</button>
+      <button type="button" class="btn" onclick="checkAdminPassword()">🔧</button>
     </div>
   </div>
 
