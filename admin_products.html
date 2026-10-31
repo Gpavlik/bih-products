@@ -33,7 +33,7 @@
 <body>
   <div id="header-container"></div>
   <div class="editor-container">
-    <a href="./index.html" class="nav-back">&larr; До перелікау продуктів</a>
+    <a href="./index.html" class="nav-back">&larr; До каталогу</a>
     <h2>📦 Повний візуальний редактор сторінок продуктів</h2>
     <p style="color: #64748b; margin-bottom: 15px;">Керуйте текстами всіх секцій препарату, зображеннями та тестуванням.</p>
 
@@ -48,7 +48,7 @@
       </div>
 
       <div class="form-group">
-        <label for="prodCategory">Категорія (для портфоліо):</label>
+        <label for="prodCategory">Категорія (для каталогу):</label>
         <select id="prodCategory" required>
           <option value="gastro">Здоров'я ШКТ</option>
           <option value="female">Жіноче здоров'я</option>
@@ -73,17 +73,17 @@
         <input type="text" id="prodSubtitle">
       </div>
       <div class="form-group">
-        <label>Короткий опис (для картки в каталозі):</label>
+        <label>Ключове повідомлення (позиціонування):</label>
         <textarea id="prodDescShort"></textarea>
       </div>
       <div class="form-group">
-        <label>Повний опис (для детальної сторінки продукту):</label>
+        <label>Короткий опис (для сторінки продукту):</label>
         <textarea id="descLong"></textarea>
       </div>
 
       <!-- Зображення -->
       <div class="form-group">
-        <label>Головне зображення (ліворуч):</label>
+        <label>Головне зображення (упаковка):</label>
         <div class="file-preview">
           <input type="file" id="imgMainFile" accept="image/*">
           <img id="imgMainPreview" src="" alt="" style="display:none;">
@@ -92,7 +92,7 @@
       </div>
 
       <div class="form-group">
-        <label>Додаткове зображення (упаковка):</label>
+        <label>Додаткове зображення (праворуч):</label>
         <div class="file-preview">
           <input type="file" id="imgSecFile" accept="image/*">
           <img id="imgSecPreview" src="" alt="" style="display:none;">
