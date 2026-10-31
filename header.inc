@@ -35,47 +35,8 @@
     <!-- Кнопки управління (Виправлено: кнопка та посилання рознесені) -->
     <div class="header__actions">
       <button type="button" class="btn" onclick="toggleDarkMode()">Тема</button>
-      <button type="button" class="btn" onclick="checkAdminPassword()">🔧</button>
+      <button type="button" id="adminBtn" class="btn" onclick="checkAdminPassword()">🔧</button>
     </div>
   </div>
-
-  <!-- Кнопка мобільного меню -->
-  <button class="mobile-menu-btn" type="button" data-menu-button aria-label="Перемикач меню">
-    <svg class="mobile-menu-icon" width="24" height="16">
-      <use class="mobile-menu-burger" href="./images/sprite.svg#24-menu"></use>
-      <use class="mobile-menu-close" href="./images/sprite.svg#icon-X"></use>
-    </svg>
-  </button>
-
-  <!-- Мобільне меню -->
-  <div class="mobile-menu" data-menu>
-    <ul class="mobile-menu-nav">
-      <li class="mobile-menu-nav-item">
-        <a class="link current" href="./index.html">Головна</a>
-      </li>
-      <li class="mobile-menu-nav-item">
-        <a class="link" href="./contacts.html">Контакти</a>
-      </li>
-    </ul>
-
-    <ul class="mobile-menu-contacts">
-      <li class="contacts__contact">
-        <a class="contacts__contact-phone" href="tel:+380675474099">
-          <svg class="contacts__contact-icon" width="20" height="20">
-            <use href="./images/sprite.svg#icon-phone"></use>
-          </svg>+38 (067) 547-40-99
-        </a>
-      </li>
-      <li class="contacts__contact">
-        <a class="contacts__contact-phone" href="tel:+380445926862">
-          <svg class="contacts__contact-icon" width="20" height="20">
-            <use href="./images/sprite.svg#icon-phone"></use>
-          </svg>+38 (044) 592-68-62
-        </a>
-      </li>
-      <li class="mobile-menu-contacts-item">
-        <a class="link" href="mailto:info@behealth.com.ua">info@behealth.com.ua</a>
-      </li>
-    </ul>
   </div>
 </header>
